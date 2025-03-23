@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة العمر</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f0f8ff;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+        input, button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .age-icon {
+            width: 100px;
+            height: 100px;
+        }
+        .link-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>حاسبة العمر</h1>
+        <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="عمر" class="age-icon">
+        <br>
+        <label for="birthdate">أدخل تاريخ ميلادك:</label>
+        <input type="date" id="birthdate">
+        <button onclick="calculateAge()">احسب العمر</button>
+        <h2 id="result"></h2>
+        <div class="link-container">
+            <p>لمشاركة الأداة، استخدم الرابط التالي:</p>
+            <a href="#" id="share-link" target="_blank">رابط الصفحة</a>
+        </div>
+    </div>
+
+    <script>
+        function calculateAge() {
+            let birthdate = document.getElementById('birthdate').value;
+            if (!birthdate) {
+                document.getElementById('result').innerText = 'الرجاء إدخال تاريخ الميلاد';
+                return;
+            }
+            let birthDate = new Date(birthdate);
+            let today = new Date();
+            let ageYears = today.getFullYear() - birthDate.getFullYear();
+            let ageMonths = today.getMonth() - birthDate.getMonth();
+            let ageDays = today.getDate() - birthDate.getDate();
+
+            if (ageDays < 0) {
+                ageMonths--;
+                ageDays += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+            }
+            if (ageMonths < 0) {
+                ageYears--;
+                ageMonths += 12;
+            }
+            document.getElementById('result').innerText = `عمرك: ${ageYears} سنة و ${ageMonths} شهر و ${ageDays} يوم`;
+        }
+    </script>
+</body>
+</html>
